@@ -154,7 +154,6 @@ export class MapComponent implements OnInit {
     this.tempPoint.price = parseFloat((<HTMLInputElement>document.getElementById('Price')).value);
     this.tempPoint.description = (<HTMLInputElement>document.getElementById('Description')).value;
     this.tempPoint.contacts = (<HTMLInputElement>document.getElementById('Contacts')).value;
-    this.tempPoint.additionalInfo = (<HTMLInputElement>document.getElementById('Address')).value;
   }
 
   /**
@@ -240,7 +239,6 @@ export class MapComponent implements OnInit {
     (document.getElementById('Price') as HTMLInputElement).value = this.tempPoint.price.toString();
     (document.getElementById('Description') as HTMLInputElement).value = this.tempPoint.description;
     (document.getElementById('Contacts') as HTMLInputElement).value = this.tempPoint.contacts;
-    (document.getElementById('Address') as HTMLInputElement).value = this.tempPoint.additionalInfo;
 
     this.ShowSubmitElement();
     var ChangePointButton = document.getElementById('ChangePoint')

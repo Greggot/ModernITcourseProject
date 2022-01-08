@@ -82,16 +82,12 @@
       <input id='Contacts' type="tel" matInput placeholder="88000000000" value="">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Доп. адрес</mat-label>
-      <input id='Address' matInput placeholder="Подъезд, квартира..." value="">
-    </mat-form-field>
 
     <div style="align-self: center;">
       <button id="AcceptPoint" mat-icon-button color="accent" style="display: inline;" (click)="SubmitEvent($event)">
         <mat-icon>done</mat-icon>
       </button>
-      <button id="ChangePoint" mat-icon-button color="accent" (click)="SubmitEvent($event)">
+      <button id="ChangePoint" mat-icon-button color="accent" (click)="SaveChengeMapPointResults($event)">
         <mat-icon>sync_alt</mat-icon>
       </button>
       <button id="DenyPoint" mat-icon-button color="accent" style="display: inline;" (click)="HideSubmitElement()">
