@@ -28,4 +28,13 @@ export class HTTPclientServiceService {
     const url = `http://localhost:8080/api/base/Party/${point.id}`
     return this.http.delete(url);
   }
+
+  changePoint(point: MapPoint)
+  {
+    const body = {id: point.id, name: point.name, description: point.description, contacts: point.contacts,
+      startTime: point.startTime, endTime: point.endTime,
+      lat: point.lat, lng: point.lng,
+      price: point.price}
+    return this.http.put('http://localhost:8080/api/base/Party', body);
+  }
 }

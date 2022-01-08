@@ -41,6 +41,8 @@ export class MapComponent implements OnInit {
   // Found points
   results:any = [];
 
+  isChangeInProcess = false;
+
   constructor(private HTTPservice: HTTPclientServiceService) {}
 
   /**
@@ -54,7 +56,12 @@ export class MapComponent implements OnInit {
         if(e.key == "Backspace" || e.key == "Escape")
           this.HideSubmitElement();
         if(e.key == "Enter")
-          this.SubmitEvent(e);
+        {
+          if(this.isChangeInProcess)
+            this.SaveChengeMapPointResults(e);
+          else
+            this.SubmitEvent(e);
+        }
     });
 
     this.HTTPservice.getAllPoints().subscribe(
@@ -230,6 +237,11 @@ export class MapComponent implements OnInit {
 
   ChangeMapPoint()
   {
+    this.isChangeInProcess = true;
+
+    this.lat = this.tempPoint.lat;
+    this.lng = this.tempPoint.lng;
+
     console.log(`Editing ${this.tempPoint.id} (${this.tempPoint.name})`);
     (document.getElementById('Name') as HTMLInputElement).value = this.tempPoint.name;
     (document.getElementById('StartTime') as HTMLInputElement).value =
@@ -252,8 +264,12 @@ export class MapComponent implements OnInit {
   SaveChengeMapPointResults(event: any)
   {
     this.getDataFromInputForm();
-    // PUT-запрос
-    console.log("PUT запрос")
+    this.HTTPservice.changePoint(this.tempPoint).subscribe(
+      (data: any) => { console.log(data); },
+        error => { console.log(error); }
+    );
+    this.HideSubmitElement();
+    this.isChangeInProcess = false;
   }
 
   SearchPoints()
