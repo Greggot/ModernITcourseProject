@@ -146,6 +146,17 @@ export class MapComponent implements OnInit {
       SearchElement.setAttribute("style", "display: none;");
   }
 
+  getDataFromInputForm()
+  {
+    this.tempPoint.name = (<HTMLInputElement>document.getElementById('Name')).value;
+    this.tempPoint.startTime = new Date((<HTMLInputElement>document.getElementById('StartTime')).value);
+    this.tempPoint.endTime = new Date((<HTMLInputElement>document.getElementById('EndTime')).value);
+    this.tempPoint.price = parseFloat((<HTMLInputElement>document.getElementById('Price')).value);
+    this.tempPoint.description = (<HTMLInputElement>document.getElementById('Description')).value;
+    this.tempPoint.contacts = (<HTMLInputElement>document.getElementById('Contacts')).value;
+    this.tempPoint.additionalInfo = (<HTMLInputElement>document.getElementById('Address')).value;
+  }
+
   /**
    * @brief Get input fileds' values, add to markers[] and make POST request
    */
@@ -153,26 +164,11 @@ export class MapComponent implements OnInit {
   {
     this.HideSubmitElement();
 
-    var inputName = (<HTMLInputElement>document.getElementById('Name')).value;
-    var inputStartTime = (<HTMLInputElement>document.getElementById('StartTime')).value;
-    var inputEndTime = (<HTMLInputElement>document.getElementById('EndTime')).value;
-    var inputPrice = (<HTMLInputElement>document.getElementById('Price')).value;
-    var inputDescription = (<HTMLInputElement>document.getElementById('Description')).value;
-    var inputContacts = (<HTMLInputElement>document.getElementById('Contacts')).value;
-    var inputAddress = (<HTMLInputElement>document.getElementById('Address')).value;
+    this.tempPoint = new MapPoint();
+    this.tempPoint.lat = this.lat;
+    this.tempPoint.lng = this.lng;
+    this.getDataFromInputForm();
 
-    this.tempPoint = ({
-      id: 0,
-      lat: this.lat,
-      lng: this.lng,
-      name: inputName,
-      description: inputDescription,
-      startTime: new Date(inputStartTime),
-      endTime: new Date(inputEndTime),
-      contacts: inputContacts,
-      price: parseFloat(inputPrice),
-      additionalInfo: inputAddress
-    });
     this.HTTPservice.postMapPoint(this.tempPoint).subscribe(
       (data: any) =>
       {
@@ -235,6 +231,7 @@ export class MapComponent implements OnInit {
 
   ChangeMapPoint()
   {
+    console.log(`Editing ${this.tempPoint.id} (${this.tempPoint.name})`);
     (document.getElementById('Name') as HTMLInputElement).value = this.tempPoint.name;
     (document.getElementById('StartTime') as HTMLInputElement).value =
       this.tempPoint.startTime.toISOString().slice(0, 16);
@@ -252,6 +249,13 @@ export class MapComponent implements OnInit {
     var ChangePointButton = document.getElementById('AcceptPoint')
     if(ChangePointButton)
       ChangePointButton.setAttribute("style", "display: none;");
+  }
+
+  SaveChengeMapPointResults(event: any)
+  {
+    this.getDataFromInputForm();
+    // PUT-запрос
+    console.log("PUT запрос")
   }
 
   SearchPoints()
