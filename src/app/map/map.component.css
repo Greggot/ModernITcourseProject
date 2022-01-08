@@ -1,0 +1,49 @@
+agm-map
+{
+  height: 85vh;
+  width: 97vw;
+  float: left;
+}
+
+input
+{
+  display: block;
+  margin-top: 1%;
+}
+
+.SubmitField
+{
+  display: none;
+}
+.timeSearch
+{
+  display: none;
+}
+@media screen and (max-width: 750px)
+{
+  agm-map
+  {
+    width: 100%;
+  }
+  .example-full-width
+  {
+    display: inline;
+    width: auto;
+  }
+}
+
+.example-full-width
+{
+  width: 15%;
+  margin-left: 2px;
+}
+
+.mat-icon{
+  font-size:28px !important;
+}
+
+.mat-icon-button{
+  height:48px !important;
+  width:48px !important;
+  font-size:48px !important;
+}

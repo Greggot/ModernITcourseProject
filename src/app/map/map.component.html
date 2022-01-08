@@ -1,0 +1,92 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div id="timeSearch" style="display: inline;">
+  <mat-form-field class="example-full-width" appearance="fill" style="width: 25%;">
+    <mat-label>Время начала</mat-label>
+    <input id='searchStartTime' type="datetime-local" matInput placeholder="0" value="">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill" style="width: 25%; margin-left: 2%;">
+    <mat-label>Время окончания</mat-label>
+    <input id='searchEndTime' type="datetime-local" matInput placeholder="0" value="">
+  </mat-form-field>
+  <button id="SearchButton" mat-raised-button (click)="SearchPoints()">Поиск</button>
+  <button id="ClearSearchButton" mat-icon-button color="accent" style="display: none;" (click)="ClearSeachResults()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+
+<div #contextTrigger="matMenuTrigger" id='ContextMenu' style="visibility: hidden; position: fixed;"
+  [style.left]="menuTopLeftPosition.x"
+  [style.top]="menuTopLeftPosition.y"
+  [matMenuTriggerFor]="rightMenu"></div>
+
+<!-- standar material menu -->
+<mat-menu #rightMenu="matMenu">
+  <ng-template matMenuContent let-item="lat">
+    <h4>{{tempPoint.name}}</h4>
+    <button (click)="ChangeElement()" mat-menu-item>Change</button>
+    <button (click)="DeleteElement()" mat-menu-item>Delete</button>
+  </ng-template>
+</mat-menu>
+
+
+<div style="display: block;">
+   <agm-map (mapReady)="onMapReady($event)" id="Map"
+      (mapRightClick)="MapClickEvent($event)" (mapDblClick)="MapClickEvent($event)"
+      [disableDoubleClickZoom]="true" [zoom]=15
+      [latitude]="stdlat" [longitude]="stdlng">
+    <agm-marker id="TargetMarker"
+      [draggable]="true"
+      [latitude]="lat"
+      [longitude]="lng"
+      [iconUrl]="'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|ffffff'">
+    </agm-marker>
+
+    <agm-marker
+      *ngFor="let data of markers; let i = index"
+      [latitude]="data.lat"
+      [longitude]="data.lng"
+      (markerClick)="MarkerClickEvent($event)">
+    </agm-marker>
+  </agm-map>
+
+  <div id="SubmitElement" class="SubmitField">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Название</mat-label>
+      <input id='Name' matInput placeholder="Тусовка №101234" value="">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Время начала</mat-label>
+      <input id='StartTime' type="datetime-local" matInput placeholder="0" value="">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Время окончания</mat-label>
+      <input id='EndTime' type="datetime-local" matInput placeholder="0" value="">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Цена за вход</mat-label>
+      <input id='Price' matInput placeholder="0" value="">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Описание</mat-label>
+      <textarea id="Description" rows="4" matInput placeholder="Ex. Будем делать..."></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Контактная информация</mat-label>
+      <input id='Contacts' type="tel" matInput placeholder="88000000000" value="">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Доп. адрес</mat-label>
+      <input id='Address' matInput placeholder="Подъезд, квартира..." value="">
+    </mat-form-field>
+
+    <!--<input type="submit" value="Сохранить" (click)="SubmitEvent($event)">
+    <input type="reset" value="Отмена" (click)="CloseEvent($event)">-->
+    </div>
+  </div>
