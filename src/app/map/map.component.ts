@@ -12,27 +12,33 @@ import { AgmMarker } from '@agm/core';
 export class MapComponent implements OnInit {
 
   title = 'unformalMeet';
+
+  //Standart map position
   stdlat = 51.758808;
   stdlng = 39.17695;
 
+  // Object used for transferring data between input form and map and vise versa
+  tempPoint: MapPoint;
+  // Position of target marker used to specify party position
   lat = 51.758808;
   lng = 39.17695;
 
-  tempPoint: MapPoint;
-
+  // Position used for context menu to appear at
   menuTopLeftPosition =  {x: 0, y: 0}
+
+  // Register window size thus we can correctly set input pannel size
   windowWidth = 0;
-
   @HostListener('window:resize', ['$event'])
-  onResize(event: any)
-  {
-    this.windowWidth = window.innerWidth;
-  }
+  onResize(event: any) { this.windowWidth = window.innerWidth; }
 
+  // Set trigger for a context menu to open on context menu
   @ViewChild('contextTrigger') contextTrigger: MatMenuTrigger;
 
-  markers: MapPoint[] =[];
+  // Overall map points
+  markers: MapPoint[] = [];
+  // Flag making all points invisible during search process
   isMarkerVisible = true;
+  // Found points
   results:any = [];
 
   constructor(private HTTPservice: HTTPclientServiceService) {}
@@ -86,6 +92,12 @@ export class MapComponent implements OnInit {
   MapClickEvent(event: any)
   {
     this.ShowSubmitElement();
+    var ChangePointButton = document.getElementById('ChangePoint')
+    if(ChangePointButton)
+      ChangePointButton.setAttribute("style", "display: none;");
+    var ChangePointButton = document.getElementById('AcceptPoint')
+    if(ChangePointButton)
+      ChangePointButton.setAttribute("style", "display: inline;");
 
     console.log(event.coords.lat);
     console.log(event.coords.lng);
@@ -132,10 +144,6 @@ export class MapComponent implements OnInit {
     var SearchElement = document.getElementById('timeSearch')
     if(SearchElement)
       SearchElement.setAttribute("style", "display: none;");
-  }
-
-  onMapReady(event: any) {
-
   }
 
   /**
@@ -209,15 +217,10 @@ export class MapComponent implements OnInit {
 
     this.contextTrigger.openMenu();
   }
-
-  CloseDemoContextWindow()
-  {
-    this.contextTrigger.closeMenu();
-  }
   /**
    * @brief Remove element from markers[] and make DELETE request
    */
-  DeleteElement()
+  DeleteMapPoint()
   {
     console.log('Delete %s', this.tempPoint.description);
     this.HTTPservice.removePoint(this.tempPoint).subscribe(
@@ -230,7 +233,7 @@ export class MapComponent implements OnInit {
    });
   }
 
-  ChangeElement()
+  ChangeMapPoint()
   {
     (document.getElementById('Name') as HTMLInputElement).value = this.tempPoint.name;
     (document.getElementById('StartTime') as HTMLInputElement).value =
@@ -243,6 +246,12 @@ export class MapComponent implements OnInit {
     (document.getElementById('Address') as HTMLInputElement).value = this.tempPoint.additionalInfo;
 
     this.ShowSubmitElement();
+    var ChangePointButton = document.getElementById('ChangePoint')
+    if(ChangePointButton)
+      ChangePointButton.setAttribute("style", "display: inline;");
+    var ChangePointButton = document.getElementById('AcceptPoint')
+    if(ChangePointButton)
+      ChangePointButton.setAttribute("style", "display: none;");
   }
 
   SearchPoints()
@@ -257,6 +266,7 @@ export class MapComponent implements OnInit {
 
     this.isMarkerVisible = false;
   }
+
   ClearSeachResults()
   {
     var ClearSearchElement = document.getElementById('ClearSearchButton')

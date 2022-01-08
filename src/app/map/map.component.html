@@ -24,14 +24,14 @@
 <mat-menu #rightMenu="matMenu">
   <ng-template matMenuContent let-item="lat">
     <h4>{{tempPoint.name}}</h4>
-    <button (click)="ChangeElement()" mat-menu-item>Change</button>
-    <button (click)="DeleteElement()" mat-menu-item>Delete</button>
+    <button (click)="ChangeMapPoint()" mat-menu-item>Change</button>
+    <button (click)="DeleteMapPoint()" mat-menu-item>Delete</button>
   </ng-template>
 </mat-menu>
 
 
 <div style="display: block;">
-   <agm-map (mapReady)="onMapReady($event)" id="Map"
+   <agm-map id="Map"
       (mapRightClick)="MapClickEvent($event)" (mapDblClick)="MapClickEvent($event)"
       [disableDoubleClickZoom]="true" [zoom]=15
       [latitude]="stdlat" [longitude]="stdlng">
@@ -90,6 +90,9 @@
     <div style="align-self: center;">
       <button id="AcceptPoint" mat-icon-button color="accent" style="display: inline;" (click)="SubmitEvent($event)">
         <mat-icon>done</mat-icon>
+      </button>
+      <button id="ChangePoint" mat-icon-button color="accent" (click)="SubmitEvent($event)">
+        <mat-icon>sync_alt</mat-icon>
       </button>
       <button id="DenyPoint" mat-icon-button color="accent" style="display: inline;" (click)="HideSubmitElement()">
         <mat-icon>cancel</mat-icon>
