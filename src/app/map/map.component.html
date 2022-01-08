@@ -73,7 +73,7 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Описание</mat-label>
-      <textarea id="Description" rows="4" matInput placeholder="Ex. Будем делать..."></textarea>
+      <textarea id="Description" rows="3" matInput placeholder="Ex. Будем делать..."></textarea>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
@@ -86,7 +86,16 @@
       <input id='Address' matInput placeholder="Подъезд, квартира..." value="">
     </mat-form-field>
 
-    <!--<input type="submit" value="Сохранить" (click)="SubmitEvent($event)">
-    <input type="reset" value="Отмена" (click)="CloseEvent($event)">-->
+    <div style="align-self: center;">
+      <button id="AcceptPoint" mat-icon-button color="accent" style="display: inline;" (click)="SubmitEvent($event)">
+        <mat-icon>done</mat-icon>
+      </button>
+      <button id="DenyPoint" mat-icon-button color="accent" style="display: inline;" (click)="HideSubmitElement()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+
     </div>
   </div>
+
+
