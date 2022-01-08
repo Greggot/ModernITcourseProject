@@ -1,0 +1,28 @@
+agm-map
+{
+  height: 80vh;
+  width: 97vw;
+  float: left;
+}
+
+input
+{
+  display: block;
+  margin-top: 1%;
+}
+
+.SubmitField
+{
+  display: none;
+}
+.timeSearch
+{
+  display: none;
+}
+@media screen and (max-width: 750px)
+{
+  agm-map
+  {
+    width: 100%;
+  }
+}
