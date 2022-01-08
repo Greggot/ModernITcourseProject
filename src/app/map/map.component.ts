@@ -171,7 +171,6 @@ export class MapComponent implements OnInit {
       },
       error => { console.log(error); }
     )
-    this.tempPoint.id = 10;
     this.markers.push(this.tempPoint);
   }
 
