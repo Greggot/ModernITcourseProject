@@ -42,10 +42,11 @@
       [iconUrl]="'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|ffffff'">
     </agm-marker>
 
-    <agm-marker
+    <agm-marker id="OverallPoints"
       *ngFor="let data of markers; let i = index"
       [latitude]="data.lat"
       [longitude]="data.lng"
+      [visible]="isMarkerVisible"
       (markerClick)="MarkerClickEvent($event)">
     </agm-marker>
   </agm-map>

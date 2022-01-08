@@ -2,6 +2,7 @@ import { HTTPclientServiceService } from './../httpclient-service.service';
 import { MapPoint } from './../map-point/map-point.module';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { AgmMarker } from '@agm/core';
 
 @Component({
   selector: 'app-map',
@@ -31,6 +32,7 @@ export class MapComponent implements OnInit {
   @ViewChild('contextTrigger') contextTrigger: MatMenuTrigger;
 
   markers: MapPoint[] =[];
+  isMarkerVisible = true;
   results:any = [];
 
   constructor(private HTTPservice: HTTPclientServiceService) {}
@@ -252,6 +254,8 @@ export class MapComponent implements OnInit {
     var ClearSearchElement = document.getElementById('ClearSearchButton')
     if(ClearSearchElement)
       ClearSearchElement.setAttribute("style", "display: inline;");
+
+    this.isMarkerVisible = false;
   }
   ClearSeachResults()
   {
@@ -262,5 +266,7 @@ export class MapComponent implements OnInit {
     var SearchElement = document.getElementById('SearchButton')
     if(SearchElement)
       SearchElement.setAttribute("style", "display: inline;");
+
+    this.isMarkerVisible = true;
   }
 }
