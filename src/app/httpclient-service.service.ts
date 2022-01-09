@@ -22,6 +22,17 @@ export class HTTPclientServiceService {
   {
     return this.http.get('http://localhost:8080/api/base/getParties', {responseType: 'json'});
   }
+  getPointsInRange(start: string, end: string)
+  {
+    return this.http.get('http://localhost:8080/api/base/getPartiesInRange',
+      {
+        params:
+        {
+          start: start,
+          end: end
+        }
+      });
+  }
 
   removePoint(point: MapPoint)
   {
