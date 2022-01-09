@@ -39,7 +39,7 @@ export class MapComponent implements OnInit {
   // Flag making all points invisible during search process
   isMarkerVisible = true;
   // Found points
-  results:any = [];
+  results: MapPoint[] = [];
 
   isChangeInProcess = false;
 
@@ -283,6 +283,29 @@ export class MapComponent implements OnInit {
       ClearSearchElement.setAttribute("style", "display: inline;");
 
     this.isMarkerVisible = false;
+    this.HTTPservice.getPointsInRange( (<HTMLInputElement>document.getElementById('searchStartTime')).value.replace('T', ' '),
+                                      (<HTMLInputElement>document.getElementById('searchEndTime')).value.replace('T', ' ')).subscribe(
+      (data: any) =>
+      {
+        console.log(data);
+        data.forEach((point: { id: any; lat: any; lng: any; name: any; description: any; startTime: string | number | Date; endTime: string | number | Date; contacts: any; price: any; }) => {
+            this.tempPoint = ({
+              id: point.id,
+              lat: point.lat,
+              lng: point.lng,
+              name: point.name,
+              description: point.description,
+              startTime: new Date(point.startTime),
+              endTime: new Date(point.endTime),
+              contacts: point.contacts,
+              price: point.price,
+              additionalInfo: "NaN"
+            });
+            this.results.push(this.tempPoint);
+        });
+      },
+        error => { console.log(error); }
+    );
   }
 
   ClearSeachResults()
@@ -296,5 +319,6 @@ export class MapComponent implements OnInit {
       SearchElement.setAttribute("style", "display: inline;");
 
     this.isMarkerVisible = true;
+    this.results = [];
   }
 }

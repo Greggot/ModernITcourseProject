@@ -35,20 +35,28 @@
       (mapRightClick)="MapClickEvent($event)" (mapDblClick)="MapClickEvent($event)"
       [disableDoubleClickZoom]="true" [zoom]=15
       [latitude]="stdlat" [longitude]="stdlng">
-    <agm-marker id="TargetMarker"
-      [draggable]="true"
-      [latitude]="lat"
-      [longitude]="lng"
-      [iconUrl]="'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|ffffff'">
-    </agm-marker>
+      <agm-marker id="TargetMarker"
+        [draggable]="true"
+        [latitude]="lat"
+        [longitude]="lng"
+        [iconUrl]="'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|ffffff'">
+      </agm-marker>
 
-    <agm-marker id="OverallPoints"
-      *ngFor="let data of markers; let i = index"
-      [latitude]="data.lat"
-      [longitude]="data.lng"
-      [visible]="isMarkerVisible"
-      (markerClick)="MarkerClickEvent($event)">
-    </agm-marker>
+      <agm-marker id="searchResultPoint"
+        (markerClick)="MarkerClickEvent($event)"
+        *ngFor="let data of results; let i = index"
+        [latitude]="data.lat"
+        [longitude]="data.lng"
+        [iconUrl]="'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|00CED1'">
+      </agm-marker>
+
+      <agm-marker id="OverallPoints"
+        *ngFor="let data of markers; let i = index"
+        [latitude]="data.lat"
+        [longitude]="data.lng"
+        [visible]="isMarkerVisible"
+        (markerClick)="MarkerClickEvent($event)">
+      </agm-marker>
   </agm-map>
 
   <div id="SubmitElement" class="SubmitField">
